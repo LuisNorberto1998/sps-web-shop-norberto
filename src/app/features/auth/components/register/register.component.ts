@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 import { User } from '../../../../core/models/login.model';
-
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
 })
-export class LoginComponent {
+export class RegisterComponent implements OnInit {
   loginForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
@@ -31,12 +36,11 @@ export class LoginComponent {
     };
 
     this.authService
-      .login(user)
+      .register(user)
       .then(response => {
         console.log(response);
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/login'])
       })
       .catch((error) => console.error(error));
   }
-
 }
