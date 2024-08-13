@@ -8,5 +8,5 @@ export const environment = {
     authDomain: 'sps-web-shop-norberto.firebaseapp.com',
     messagingSenderId: '124808184326',
   },
-  baseURL: 'https://api.escuelajs.co/api/v1/'
+  baseURL: 'https://dummyjson.com/',
 };
