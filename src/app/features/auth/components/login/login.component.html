@@ -1,14 +1,39 @@
 <div class="login-container">
-    <h2>Login</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="row">
+            <div class="col-12 text-center">
+                <img src="assets/img/logo-eagle.png" alt="Logo" class="login-logo">
+            </div>
+            
+            <div class="col-12 text-center">
+                <h2>Bienvenido</h2>
+            </div>
 
-        <label for="email" class="email">Email:</label>
-        <input type="email" id="email" name="email" formControlName="email" required>
+            <mat-form-field class="login-full-width col-12">
+                <mat-label>Email</mat-label>
+                <input id="email-eagle" type="email" matInput formControlName="email" autocomplete="off" placeholder="Ex. pat@example.com">
+                <mat-error *ngIf="loginForm.get('email')?.hasError('email') && !loginForm.get('email')?.hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
 
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" formControlName="password" required>
+            <mat-form-field class="login-full-width col-12">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="Ex. 123">
+                <mat-error *ngIf="loginForm.get('password')?.hasError('password') && !loginForm.get('password')?.hasError('required')">
+                    Please enter a valid password
+                </mat-error>
+                <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
 
-        <button type="submit">Login</button>
-
+            <div class="col-12 login-button">
+                <button mat-flat-button type="submit">Iniciar sesión</button>
+            </div>
+        </div>
     </form>
 </div>
