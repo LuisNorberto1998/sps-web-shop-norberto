@@ -9,8 +9,8 @@ import { Products } from '../../../core/models/products.model';
 export class ProductService {
   constructor(private globalService: GlobalService) {}
 
-  public getAllProducts(): Observable<any> {
-    return this.globalService.get<any>(`products`);
+  public getAllProducts(filters: string): Observable<any> {
+    return this.globalService.get<any>(`products${filters}`);
   }
 
   public getOneProduct(params: number): Observable<any> {
