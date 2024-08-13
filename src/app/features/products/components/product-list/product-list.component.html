@@ -1,5 +1,5 @@
 <div class="product-grid">
-  <div *ngFor="let product of listProduct.products" class="product-item">
+  <div *ngFor="let product of filterProducts?.products" class="product-item">
     <mat-card class="example-card" appearance="outlined">
       <img mat-card-image [src]="product.images[0]" alt="{{ product.title }}">
 
@@ -20,3 +20,5 @@
     </mat-card>
   </div>
 </div>
+
+<mat-paginator [length]="filterProducts?.total" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page" (page)="onPageChange($event)"></mat-paginator>

@@ -11,6 +11,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource } from '@angular/material/table';
 import { Product } from '../../../../core/models/products.model';
 import { ProductService } from '../../../products/services/product.service';
+import { SearchBarService } from '../../services/search-bar.service';
+import { CategoriesService } from '../../../products/services/categories.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -35,59 +37,73 @@ export class SearchBarComponent {
   selectedCategory: string = '';
   sortOption: string = '';
   selectedRating: number = 0;
-  categories: string[] = ['Electronics', 'Clothing', 'Home'];
-  ratings: number[] = [1, 2, 3, 4, 5];
+  categories: string[] = [];
+
+  ratings: { name: string; value: number | null }[] = [
+    { name: '1', value: 1 },
+    { name: '2', value: 2 },
+    { name: '3', value: 3 },
+    { name: '4', value: 4 },
+    { name: '5', value: 5 },
+  ];
+
   pageSize: number = 5;
+  sortOrder: 'asc' | 'desc' = 'asc';
+  minPrice: number = 0;
+  maxPrice: number = Infinity;
+
   dataSource = new MatTableDataSource<Product>([]);
   paginatedData: Product[] = [];
 
   constructor(
     private productService: ProductService,
+    private categoriesServices: CategoriesService,
+    private searchBarService: SearchBarService,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.loadProducts();
+    this.getCategories();
   }
 
   loadProducts() {
-    this.productService.getPagination('').subscribe((products) => {
-      this.dataSource.data = products;
-      this.applyFilter();
-    });
+    this.applyFilter();
   }
 
   applyFilter() {
-    let filteredData = this.dataSource.data;
+    this.searchBarService.updateFilters({
+      searchTerm: this.searchTerm,
+      selectedCategory: this.selectedCategory,
+      sortOption: this.sortOption,
+      sortOrder: this.sortOrder,
+      selectedRating: this.selectedRating,
+      priceRange: { min: this.minPrice, max: this.maxPrice },
+    });
+  }
 
-    if (this.searchTerm) {
-      filteredData = filteredData.filter((product) =>
-        product.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    }
+  cleanSearch() {
+    this.searchBarService.updateFilters({
+      searchTerm: '',
+      selectedCategory: '',
+      sortOption: '',
+      sortOrder: 'asc',
+      selectedRating: 0,
+      priceRange: { min: 0, max: Infinity }
+    });
+  }
 
-    if (this.selectedCategory) {
-      filteredData = filteredData.filter(
-        (product) => product.category === this.selectedCategory
-      );
-    }
-
-    if (this.selectedRating) {
-      filteredData = filteredData.filter(
-        (product) => product.rating >= this.selectedRating
-      );
-    }
-
-    switch (this.sortOption) {
-      case 'price-asc':
-        filteredData.sort((a, b) => a.price - b.price);
-        break;
-      case 'price-desc':
-        filteredData.sort((a, b) => b.price - a.price);
-        break;
-      case 'rating':
-        filteredData.sort((a, b) => b.rating - a.rating);
-        break;
-    }
+  getCategories() {
+    this.categoriesServices.getCategories('/category-list').subscribe({
+      next: (value) => {
+        this.categories = value;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('complete');
+      },
+    });
   }
 }
