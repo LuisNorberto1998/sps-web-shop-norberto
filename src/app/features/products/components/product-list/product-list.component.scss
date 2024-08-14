@@ -1,7 +1,7 @@
 .product-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center; /* Centra las cards cuando hay menos de 3 */
   width: 80%;
   margin: auto;
 }
@@ -9,30 +9,37 @@
 .product-item {
   box-sizing: border-box;
   padding: 10px;
+  margin: 10px;
+  width: calc(33.333% - 20px); /* 33.333% del ancho, menos los márgenes */
+  max-width: 400px; /* Asegura que la card no sea más grande que el contenido */
   display: flex;
-  margin: auto;
-}
-
-.title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
-  display: block;
 }
 
 .example-card {
-  width: 400px;
+  width: 100%;
   height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-.example-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: contain
+  &:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+  }
+
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }
 
 mat-card-header,

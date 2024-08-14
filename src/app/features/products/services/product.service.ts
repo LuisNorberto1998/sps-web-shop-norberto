@@ -13,8 +13,8 @@ export class ProductService {
     return this.globalService.get<any>(`products${filters}`);
   }
 
-  public getOneProduct(params: number): Observable<any> {
-    return this.globalService.get<any>(`products/${params}`);
+  public getOneProduct(product: number): Observable<any> {
+    return this.globalService.get<any>(`products/${product}`);
   }
 
   public createProduct(params: Products): Observable<Products> {

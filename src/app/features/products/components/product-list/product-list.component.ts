@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { CommonModule } from '@angular/common';
 
@@ -12,11 +12,18 @@ import { Subscription } from 'rxjs';
 import { SearchBarService } from '../../../shared/services/search-bar.service';
 import { ProductService } from '../../services/product.service';
 import { SpinnerService } from '../../../shared/services/spinner.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, CommonModule, MatPaginatorModule, MatGridListModule],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    CommonModule,
+    MatPaginatorModule,
+    MatGridListModule,
+  ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
 })
@@ -49,7 +56,8 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private searchBarService: SearchBarService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -82,9 +90,10 @@ export class ProductListComponent implements OnInit {
         ? ''
         : `&sortBy=${sortOption}&order=${sortOrder}`;
 
-    // &select=title,price,images,description,id,rating,thumbnail
     this.productService
-      .getPagination(`${categorie}?limit=0${order}`)
+      .getPagination(
+        `${categorie}?limit=0${order}&select=id,title,price,description,rating,thumbnail`
+      )
       .subscribe({
         next: (result: any) => {
           this.listProduct = result;
@@ -142,14 +151,6 @@ export class ProductListComponent implements OnInit {
         product.rating >= ratingRange.min && product.rating <= ratingRange.max
     );
 
-    // Ordenar los productos
-    // filteredProducts.sort((a: any, b: any) => {
-    //   const valueA = a[sortBy];
-    //   const valueB = b[sortBy];
-
-    //   return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
-    // });
-
     // Paginación
     const startIndex = page * this.pageSize;
     const endIndex = startIndex + this.pageSize;
@@ -166,11 +167,7 @@ export class ProductListComponent implements OnInit {
 
     this.filterSubscription = this.searchBarService.filter$.subscribe(
       (filters) => {
-        const {
-          searchTerm,
-          selectedRating,
-          priceRange,
-        } = filters;
+        const { searchTerm, selectedRating, priceRange } = filters;
 
         this.filterProducts = this.filterProductsTable(
           searchTerm,
@@ -183,5 +180,11 @@ export class ProductListComponent implements OnInit {
         );
       }
     );
+  }
+
+  onCardClick(event: any) {
+    console.log(event);
+
+    this.router.navigate(['/product'], { queryParams: { id: event.id } });
   }
 }
