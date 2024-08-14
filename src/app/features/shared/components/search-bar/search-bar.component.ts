@@ -13,6 +13,7 @@ import { Product } from '../../../../core/models/products.model';
 import { ProductService } from '../../../products/services/product.service';
 import { SearchBarService } from '../../services/search-bar.service';
 import { CategoriesService } from '../../../products/services/categories.service';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-search-bar',
@@ -28,6 +29,8 @@ import { CategoriesService } from '../../../products/services/categories.service
     MatOptionModule,
     MatSelectModule,
     CommonModule,
+    MatSidenavModule,
+    MatButtonModule,
   ],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.scss',
@@ -52,11 +55,12 @@ export class SearchBarComponent {
   minPrice: number = 0;
   maxPrice: number = Infinity;
 
+  isPanelVisible = false; // Controla la visibilidad del panel
+
   dataSource = new MatTableDataSource<Product>([]);
   paginatedData: Product[] = [];
 
   constructor(
-    private productService: ProductService,
     private categoriesServices: CategoriesService,
     private searchBarService: SearchBarService,
     private fb: FormBuilder
@@ -69,6 +73,11 @@ export class SearchBarComponent {
 
   loadProducts() {
     this.applyFilter();
+  }
+
+  
+  togglePanel() {
+    this.isPanelVisible = !this.isPanelVisible;
   }
 
   applyFilter() {

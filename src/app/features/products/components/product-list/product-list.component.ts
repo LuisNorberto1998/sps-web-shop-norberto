@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../services/product.service';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
-import { SearchBarService } from '../../../shared/services/search-bar.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import {MatGridListModule} from '@angular/material/grid-list';
+
+import { CommonModule } from '@angular/common';
+
+import { Subscription } from 'rxjs';
+
+import { SearchBarService } from '../../../shared/services/search-bar.service';
+import { ProductService } from '../../services/product.service';
+import { SpinnerService } from '../../../shared/services/spinner.service';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, CommonModule, MatPaginatorModule],
+  imports: [MatCardModule, MatButtonModule, CommonModule, MatPaginatorModule, MatGridListModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
 })
@@ -43,10 +48,12 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private searchBarService: SearchBarService
+    private searchBarService: SearchBarService,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
+    this.spinnerService.showSpinner();
     this.filterSubscription = this.searchBarService.filter$.subscribe(
       (filters) => {
         this.getProductsByFilterAndPagination(filters);
@@ -55,6 +62,10 @@ export class ProductListComponent implements OnInit {
   }
 
   getProductsByFilterAndPagination(filters?: any) {
+    this.spinnerService.showSpinner();
+
+    this.currentPage = 0;
+
     const {
       searchTerm,
       selectedCategory,
@@ -64,31 +75,40 @@ export class ProductListComponent implements OnInit {
       priceRange,
     } = filters;
 
-    const categorie = selectedCategory === '' ? '' : `category/${selectedCategory}/`;
-    const order = sortOption === '' && sortOrder === '' ? '' : `&sortBy=${sortOption}&order=${sortOrder}`;
+    const categorie =
+      selectedCategory === '' ? '' : `category/${selectedCategory}/`;
+    const order =
+      sortOption === '' && sortOrder === ''
+        ? ''
+        : `&sortBy=${sortOption}&order=${sortOrder}`;
 
+    // &select=title,price,images,description,id,rating,thumbnail
+    this.productService
+      .getPagination(`${categorie}?limit=0${order}`)
+      .subscribe({
+        next: (result: any) => {
+          this.listProduct = result;
 
-// &select=title,price,images,description,id,rating,thumbnail
-    this.productService.getPagination(`${categorie}?limit=0${order}`).subscribe({
-      next: (result: any) => {
-        this.listProduct = result;
-
-        this.filterProducts = this.filterProductsTable(
-          searchTerm,
-          selectedCategory,
-          sortOption || 'price',
-          sortOrder || 'asc',
-          priceRange || { min: 0, max: Infinity },
-          { min: selectedRating, max: selectedRating === 0 ? 5 : (selectedRating + 1)  },
-          this.currentPage
-        );
-      },
-      error: (error) => {
-        console.error(error);
-        this.listProduct = {};
-      },
-      complete: () => {},
-    });
+          this.filterProducts = this.filterProductsTable(
+            searchTerm,
+            priceRange || { min: 0, max: Infinity },
+            {
+              min: selectedRating,
+              max: selectedRating === 0 ? 5 : selectedRating + 1,
+            },
+            this.currentPage
+          );
+          this.spinnerService.hideSpinner();
+        },
+        error: (error) => {
+          console.error(error);
+          this.listProduct = {};
+          this.spinnerService.hideSpinner();
+        },
+        complete: () => {
+          this.spinnerService.hideSpinner();
+        },
+      });
   }
 
   addToCart(product: any): void {
@@ -97,9 +117,6 @@ export class ProductListComponent implements OnInit {
 
   filterProductsTable(
     searchTerm: string,
-    category: string,
-    sortBy: 'price' | 'rating',
-    sortOrder: 'asc' | 'desc',
     priceRange: { min: number; max: number },
     ratingRange: { min: number; max: number },
     page: number
@@ -108,8 +125,8 @@ export class ProductListComponent implements OnInit {
 
     // Filtrar por categoría
     if (searchTerm) {
-      filteredProducts = filteredProducts.filter(
-        (product: any) => product.title.toLowerCase().includes(searchTerm.toLowerCase())
+      filteredProducts = filteredProducts.filter((product: any) =>
+        product.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -151,20 +168,17 @@ export class ProductListComponent implements OnInit {
       (filters) => {
         const {
           searchTerm,
-          selectedCategory,
-          sortOption,
-          sortOrder,
           selectedRating,
           priceRange,
         } = filters;
 
         this.filterProducts = this.filterProductsTable(
           searchTerm,
-          selectedCategory,
-          sortOption || 'price',
-          sortOrder || 'asc',
           priceRange || { min: 0, max: Infinity },
-          { min: selectedRating, max: selectedRating === 0 ? 5 : (selectedRating + 1)  },
+          {
+            min: selectedRating,
+            max: selectedRating === 0 ? 5 : selectedRating + 1,
+          },
           this.currentPage
         );
       }

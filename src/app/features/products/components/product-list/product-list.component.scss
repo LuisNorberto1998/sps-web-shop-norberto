@@ -10,6 +10,7 @@
   box-sizing: border-box;
   padding: 10px;
   display: flex;
+  margin: auto;
 }
 
 .title {
@@ -38,4 +39,12 @@ mat-card-header,
 mat-card-content,
 mat-card-actions {
   padding: 0 8px;
+}
+
+.paginator-list {
+  width: 80%;
+  margin: auto;
+  background-color: transparent;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }

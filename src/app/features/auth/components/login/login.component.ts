@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../../../core/models/login.model';
 import { CommonModule } from '@angular/common';
+import { SpinnerService } from '../../../shared/services/spinner.service';
 
 @Component({
   selector: 'app-login',
@@ -40,7 +41,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +53,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    this.spinnerService.showSpinner();
     const user: User = {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password,
@@ -61,6 +64,7 @@ export class LoginComponent {
       .then((response) => {
         console.log(response);
         this.router.navigate(['/dashboard']);
+        this.spinnerService.showSpinner();
       })
       .catch((error) => console.error(error));
   }

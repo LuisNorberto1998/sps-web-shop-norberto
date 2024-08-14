@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    background-color: #f1f1f1;
+    border-top: 1px solid #ccc;
 }
 
 .footer-logo {
@@ -19,7 +19,6 @@
 
 .footer-logo-img {
     max-width: 100px;
-    /* Ajusta el tamaño según sea necesario */
     height: auto;
 }
 
