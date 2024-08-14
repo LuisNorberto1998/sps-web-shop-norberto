@@ -1,1 +1,23 @@
-<p>cart works!</p>
+<app-header></app-header>
+
+<div class="cart-container-primary">
+    <div class="cart-container">
+        <div class="cart-products">
+            <div *ngFor="let product of cart" class="cart-product">
+                <img [src]="product.thumbnail" alt="{{product.title}}">
+                <div class="product-details">
+                    <h3 class="title-cart">{{product.title}}</h3>
+                    <p>{{product.price | currency}}</p>
+                    <p>Cantidad: {{product.quantity}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-summary">
+            <h2>Resumen del pedido</h2>
+            <p>Total productos: {{ getTotalProducts() }}</p>
+            <p>Total: {{ getTotalPrice() | currency }}</p>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+</div>

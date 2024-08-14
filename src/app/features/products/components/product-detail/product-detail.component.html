@@ -13,7 +13,7 @@
             <div class="product-stock">
                 <p>In Stock: {{ product?.stock }}</p>
             </div>
-            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="add-to-cart-btn" (click)="addToCart($event)">Add to Cart</button>
             <p class="product-description">
                 {{ product?.description }}
             </p>

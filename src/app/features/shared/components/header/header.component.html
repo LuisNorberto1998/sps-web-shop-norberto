@@ -1,15 +1,13 @@
 <mat-toolbar class="custom-toolbar">
-  <!-- Logo a la izquierda -->
-  <span class="logo-image">
+  <span class="logo-image" (click)="goTo('/dashboard')">
     <img src="assets/img/Branding-eagle.png" alt="" id="branding">
   </span>
 
-  <!-- Espaciador para empujar el botón al final -->
   <span class="example-spacer"></span>
 
-  <!-- Botón de carrito de compras a la derecha -->
-  <button mat-icon-button class="cart-icon" (click)="goToCart()" aria-label="Carrito de compras">
+  <button mat-icon-button class="cart-icon" (click)="goTo('/cart')" aria-label="Carrito de compras">
     <mat-icon>shopping_cart</mat-icon>
+    <span class="cart-count">{{ cartItemsCount }}</span>
   </button>
   <button mat-icon-button class="cart-icon" (click)="logout()" aria-label="Cerrar sesión">
     <mat-icon>logout</mat-icon>
