@@ -9,15 +9,27 @@
                     <h3 class="title-cart">{{product.title}}</h3>
                     <p>{{product.price | currency}}</p>
                     <p>Cantidad: {{product.quantity}}</p>
+    
+                    <button mat-icon-button (click)="removeFromCart(product.id)" color="warn">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </div>
             </div>
         </div>
 
         <div class="cart-summary">
             <h2>Resumen del pedido</h2>
-            <p>Total productos: {{ getTotalProducts() }}</p>
-            <p>Total: {{ getTotalPrice() | currency }}</p>
-            <button class="checkout-btn">Checkout</button>
+            <p>Productos: {{ getTotalProducts() }}</p>
+            <p>Total a pagar: {{ getTotalPrice() | currency }}</p>
+
+
+            <div class="w-100 pt-5">
+                <button mat-fab extended class="checkout-btn">
+                    <mat-icon>payment</mat-icon>
+                    Pagar
+                </button>
+            </div>
+
         </div>
     </div>
 </div>

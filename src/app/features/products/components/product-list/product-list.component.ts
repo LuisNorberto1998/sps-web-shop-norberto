@@ -13,6 +13,7 @@ import { SearchBarService } from '../../../shared/services/search-bar.service';
 import { ProductService } from '../../services/product.service';
 import { SpinnerService } from '../../../shared/services/spinner.service';
 import { Router } from '@angular/router';
+import { RatingComponent } from '../../../shared/components/rating/rating.component';
 
 @Component({
   selector: 'app-product-list',
@@ -23,6 +24,7 @@ import { Router } from '@angular/router';
     CommonModule,
     MatPaginatorModule,
     MatGridListModule,
+    RatingComponent
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
@@ -30,8 +32,8 @@ import { Router } from '@angular/router';
 export class ProductListComponent implements OnInit {
   filterSubscription: Subscription = new Subscription();
 
-  totalProducts = 0; // Total de productos (necesario para la paginación)
-  pageSize = 5; // Tamaño de la página
+  totalProducts = 0;
+  pageSize = 5;
   currentPage = 0;
 
   private _listProduct: any;
@@ -120,10 +122,6 @@ export class ProductListComponent implements OnInit {
       });
   }
 
-  addToCart(product: any): void {
-    console.log('Producto añadido al carrito:', product);
-  }
-
   filterProductsTable(
     searchTerm: string,
     priceRange: { min: number; max: number },
@@ -132,32 +130,28 @@ export class ProductListComponent implements OnInit {
   ) {
     let filteredProducts = this.listProduct?.products;
 
-    // Filtrar por categoría
     if (searchTerm) {
       filteredProducts = filteredProducts.filter((product: any) =>
         product.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
-    // Filtrar por rango de precios
     filteredProducts = filteredProducts.filter(
       (product: any) =>
         product.price >= priceRange.min && product.price <= priceRange.max
     );
 
-    // Filtrar por rango de calificación
     filteredProducts = filteredProducts.filter(
       (product: any) =>
         product.rating >= ratingRange.min && product.rating <= ratingRange.max
     );
 
-    // Paginación
     const startIndex = page * this.pageSize;
     const endIndex = startIndex + this.pageSize;
 
     return {
       products: filteredProducts.slice(startIndex, endIndex),
-      total: filteredProducts.length, // Total de productos filtrados
+      total: filteredProducts.length,
     };
   }
 
@@ -183,8 +177,6 @@ export class ProductListComponent implements OnInit {
   }
 
   onCardClick(event: any) {
-    console.log(event);
-
     this.router.navigate(['/product'], { queryParams: { id: event.id } });
   }
 }

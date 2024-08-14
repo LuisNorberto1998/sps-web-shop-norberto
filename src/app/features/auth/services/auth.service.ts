@@ -10,7 +10,6 @@ export class AuthService {
   currentUser$: Observable<User | null>;
 
   constructor(private auth: Auth) {
-    // Crear un observable que emite el estado de autenticación del usuario
     this.currentUser$ = new Observable<User | null>((observer) => {
       onAuthStateChanged(this.auth, (user) => {
         observer.next(user ? { email: user.email!, password: '' } : null);

@@ -19,6 +19,11 @@ $project-theme: mat.define-theme((
   @include mat.all-component-themes($project-theme);
 }
 
+$color-primary: #151515;
+$color-secondry: #A91D3A;
+$color-third: #C73659;
+$color-four: #EEEEEE;
+
 html,
 body {
   height: 100%;
@@ -28,3 +33,5 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+

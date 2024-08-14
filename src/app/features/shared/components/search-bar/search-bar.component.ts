@@ -55,7 +55,7 @@ export class SearchBarComponent {
   minPrice: number = 0;
   maxPrice: number = Infinity;
 
-  isPanelVisible = false; // Controla la visibilidad del panel
+  isPanelVisible = false;
 
   dataSource = new MatTableDataSource<Product>([]);
   paginatedData: Product[] = [];
@@ -116,10 +116,10 @@ export class SearchBarComponent {
         this.categories = value;
       },
       error: (err) => {
-        console.log(err);
+        
       },
       complete: () => {
-        console.log('complete');
+
       },
     });
   }

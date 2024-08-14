@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { GlobalService } from '../../../core/services/global.service';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { catchError, from, map, Observable, of, switchMap, tap } from 'rxjs';
 import { collectionData, Firestore } from '@angular/fire/firestore';
 import { Auth } from '@angular/fire/auth';
-import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class CartService {
       try {
         if (product.id && product.title && product.price) {
           const cartRef = collection(this.firestore, 'users', user.uid, 'cart');
-          const productRef = doc(cartRef, product.id.toString()); // ID debe ser una cadena
+          const productRef = doc(cartRef, product.id.toString());
 
           const docSnapshot = await getDoc(productRef);
 
@@ -44,7 +44,6 @@ export class CartService {
               { merge: true }
             );
 
-            console.log('Cantidad actualizada en el carrito.');
             this.snackBar.open(
               'Cantidad actualizada en el carrito.',
               'Cerrar',
@@ -66,7 +65,6 @@ export class CartService {
               { merge: true }
             );
 
-            console.log('Producto agregado al carrito exitosamente.');
             this.snackBar.open(
               'Producto agregado al carrito exitosamente.',
               'Cerrar',
@@ -136,6 +134,35 @@ export class CartService {
         duration: 3000,
       });
       return of([]);
+    }
+  }
+
+  removeFromCart(productId: string): Observable<void> {
+    const user = this.auth.currentUser;
+
+    if (user) {
+      const cartRef = collection(this.firestore, 'users', user.uid, 'cart');
+      const productRef = doc(cartRef, productId);
+
+      return from(deleteDoc(productRef)).pipe(
+        tap(() => {
+          this.snackBar.open('Producto eliminado del carrito.', 'Cerrar', {
+            duration: 3000,
+          });
+        }),
+        catchError((error) => {
+          console.error('Error al eliminar del carrito:', error);
+          this.snackBar.open('Error al eliminar del carrito.', 'Cerrar', {
+            duration: 3000,
+          });
+          return of();
+        })
+      );
+    } else {
+      this.snackBar.open('No hay un usuario autenticado.', 'Cerrar', {
+        duration: 3000,
+      });
+      return of();
     }
   }
 }

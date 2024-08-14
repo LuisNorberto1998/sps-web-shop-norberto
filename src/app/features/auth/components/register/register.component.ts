@@ -38,7 +38,6 @@ export class RegisterComponent implements OnInit {
     this.authService
       .register(user)
       .then(response => {
-        console.log(response);
         this.router.navigate(['/login'])
       })
       .catch((error) => console.error(error));

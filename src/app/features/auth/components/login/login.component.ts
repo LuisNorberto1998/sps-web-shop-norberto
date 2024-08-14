@@ -64,7 +64,7 @@ export class LoginComponent {
     this.authService
       .login(user)
       .then((response) => {
-        console.log(response);
+        
         const userEmail = response.user?.email || '';
         const userId = response.user?.uid || '';
         this.router.navigate(['/dashboard']);
@@ -76,6 +76,7 @@ export class LoginComponent {
       })
       .catch((error) => {
         console.error(error);
+        this.spinnerService.hideSpinner();
         this.snackBar.open('Error al iniciar sesión', 'Cerrar', {
           duration: 3000,
         });

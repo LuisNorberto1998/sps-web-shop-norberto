@@ -1,7 +1,7 @@
 .product-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Centra las cards cuando hay menos de 3 */
+  justify-content: center;
   width: 80%;
   margin: auto;
 }
@@ -10,8 +10,8 @@
   box-sizing: border-box;
   padding: 10px;
   margin: 10px;
-  width: calc(33.333% - 20px); /* 33.333% del ancho, menos los márgenes */
-  max-width: 400px; /* Asegura que la card no sea más grande que el contenido */
+  width: calc(33.333% - 20px);
+  max-width: 400px;
   display: flex;
 }
 
@@ -45,7 +45,12 @@
 mat-card-header,
 mat-card-content,
 mat-card-actions {
-  padding: 0 8px;
+  padding: 0 20px;
+  width: 100%;
+
+  .title {
+    text-align: right;
+  }
 }
 
 .paginator-list {

@@ -4,19 +4,24 @@ import { CartService } from '../../services/cart.service';
 import { Subscription } from 'rxjs';
 import { SpinnerService } from '../../../shared/services/spinner.service';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, HeaderComponent, MatIconModule, MatButtonModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
-export class CartComponent implements OnInit, OnDestroy{
+export class CartComponent implements OnInit, OnDestroy {
   cart: any[] = [];
   private cartSubscription: Subscription = new Subscription();
 
-  constructor(private cartService: CartService, private spinnerService: SpinnerService) {}
+  constructor(
+    private cartService: CartService,
+    private spinnerService: SpinnerService
+  ) {}
 
   ngOnInit(): void {
     this.loadCart();
@@ -42,8 +47,15 @@ export class CartComponent implements OnInit, OnDestroy{
 
   getTotalPrice(): number {
     return this.cart.reduce(
-      (sum, product) => sum + (product.price * (product.quantity || 0)),
+      (sum, product) => sum + product.price * (product.quantity || 0),
       0
     );
+  }
+
+  removeFromCart(productId: string): void {
+    this.cartService.removeFromCart(productId).subscribe(() => {
+      // Actualizar la vista después de eliminar
+      this.loadCart();
+    });
   }
 }
