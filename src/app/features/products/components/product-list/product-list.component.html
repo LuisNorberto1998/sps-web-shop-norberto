@@ -1,7 +1,8 @@
 <div class="product-grid">
+
   <div *ngFor="let product of filterProducts?.products" class="product-item">
     <mat-card class="example-card" appearance="outlined">
-      <img mat-card-image [src]="product.images[0]" alt="{{ product.title }}">
+      <img mat-card-image [src]="product?.thumbnail" loading="lazy" alt="{{ product.title }}">
 
       <mat-card-header>
         <mat-card-title class="title">{{ product.title }}</mat-card-title>
@@ -19,6 +20,8 @@
       </mat-card-actions>
     </mat-card>
   </div>
+
+  
 </div>
 
 <mat-paginator [length]="filterProducts?.total" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page" (page)="onPageChange($event)"></mat-paginator>

@@ -83,6 +83,14 @@ export class SearchBarComponent {
   }
 
   cleanSearch() {
+    this.searchTerm = '';
+    this.selectedCategory = '';
+    this.sortOption = '';
+    this.selectedRating = 0;
+    this.categories = [];
+
+    this.getCategories();
+
     this.searchBarService.updateFilters({
       searchTerm: '',
       selectedCategory: '',

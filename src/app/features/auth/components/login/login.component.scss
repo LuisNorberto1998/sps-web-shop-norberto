@@ -2,8 +2,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: auto;
     width: 100%;
+    min-height: 92%;
 }
 
 .login-logo {

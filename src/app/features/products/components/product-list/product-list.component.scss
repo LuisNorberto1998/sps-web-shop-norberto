@@ -1,15 +1,15 @@
 .product-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: 80%;
+  margin: auto;
 }
 
 .product-item {
-  flex: 1 1 30%; /* 30% del contenedor para mostrar 3 tarjetas por fila */
   box-sizing: border-box;
-  margin-bottom: 20px;
+  padding: 10px;
   display: flex;
-  justify-content: center;
 }
 
 .title {

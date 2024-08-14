@@ -15,6 +15,7 @@
 
     <mat-form-field>
         <mat-select placeholder="Ordenar por" [(ngModel)]="sortOption" (ngModelChange)="applyFilter()">
+            <mat-option value="title">Nombre</mat-option>
             <mat-option value="price">Precio</mat-option>
             <mat-option value="rating">Calificación</mat-option>
         </mat-select>

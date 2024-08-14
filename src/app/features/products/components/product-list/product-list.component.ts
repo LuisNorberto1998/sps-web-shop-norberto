@@ -64,9 +64,12 @@ export class ProductListComponent implements OnInit {
       priceRange,
     } = filters;
 
-    console.log(filters);
+    const categorie = selectedCategory === '' ? '' : `category/${selectedCategory}/`;
+    const order = sortOption === '' && sortOrder === '' ? '' : `&sortBy=${sortOption}&order=${sortOrder}`;
 
-    this.productService.getPagination(`?limit=0`).subscribe({
+
+// &select=title,price,images,description,id,rating,thumbnail
+    this.productService.getPagination(`${categorie}?limit=0${order}`).subscribe({
       next: (result: any) => {
         this.listProduct = result;
 
@@ -104,13 +107,6 @@ export class ProductListComponent implements OnInit {
     let filteredProducts = this.listProduct?.products;
 
     // Filtrar por categoría
-    if (category) {
-      filteredProducts = filteredProducts.filter(
-        (product: any) => product.category === category
-      );
-    }
-
-    // Filtrar por categoría
     if (searchTerm) {
       filteredProducts = filteredProducts.filter(
         (product: any) => product.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -130,12 +126,12 @@ export class ProductListComponent implements OnInit {
     );
 
     // Ordenar los productos
-    filteredProducts.sort((a: any, b: any) => {
-      const valueA = a[sortBy];
-      const valueB = b[sortBy];
+    // filteredProducts.sort((a: any, b: any) => {
+    //   const valueA = a[sortBy];
+    //   const valueB = b[sortBy];
 
-      return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
-    });
+    //   return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
+    // });
 
     // Paginación
     const startIndex = page * this.pageSize;
@@ -150,8 +146,6 @@ export class ProductListComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
-
-    console.log(event);
 
     this.filterSubscription = this.searchBarService.filter$.subscribe(
       (filters) => {
