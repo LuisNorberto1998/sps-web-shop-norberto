@@ -9,7 +9,7 @@
     <mat-icon>shopping_cart</mat-icon>
     <span class="cart-count accent-background">{{ cartItemsCount }}</span>
   </button>
-  <button mat-icon-button class="cart-icon" (click)="logout()" aria-label="Cerrar sesión">
+  <button mat-icon-button class="cart-icon" (click)="logout()" aria-label="Cerrar sesión" data-testid="logout-button">
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>

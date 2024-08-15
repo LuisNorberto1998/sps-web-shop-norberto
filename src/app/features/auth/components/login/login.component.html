@@ -9,33 +9,33 @@
                 <h2>Bienvenido</h2>
             </div>
 
-            <mat-form-field class="login-full-width col-12 mt-4" appearance="outline" color="accent">
+            <mat-form-field data-testid="email-form-field" class="login-full-width col-12 mt-4" appearance="outline" color="accent">
                 <mat-label>Email</mat-label>
                 <input id="email-eagle" type="email" matInput formControlName="email" autocomplete="off"
                     placeholder="Ex. pat@example.com">
                 <mat-error
                     *ngIf="loginForm.get('email')?.hasError('email') && !loginForm.get('email')?.hasError('required')">
-                    Please enter a valid email address
+                    Por favor ingresa un email
                 </mat-error>
                 <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
-                    Email is <strong>required</strong>
+                    Email es <strong>obligatorio</strong>
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field class="login-full-width col-12 mt-4" appearance="outline" color="accent">
+            <mat-form-field data-testid="password-form-field" class="login-full-width col-12 mt-4" appearance="outline" color="accent">
                 <mat-label>Password</mat-label>
                 <input type="password" matInput formControlName="password" placeholder="Ex. 123">
                 <mat-error
                     *ngIf="loginForm.get('password')?.hasError('password') && !loginForm.get('password')?.hasError('required')">
-                    Please enter a valid password
+                    Ingresa una contraseña
                 </mat-error>
                 <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
-                    Password is <strong>required</strong>
+                    Contraseña es <strong>obligatoria</strong>
                 </mat-error>
             </mat-form-field>
 
             <div class="col-12 login-button mt-4">
-                <button mat-fab extended class="" type="submit" color="accent">
+                <button mat-fab extended class="" type="submit" color="accent" [disabled]="loginForm.invalid" data-testid="login-button">
                     <mat-icon>login</mat-icon>
                     Iniciar sesión
                 </button>

@@ -10,7 +10,7 @@
                 <h3>Aquí puedes crear tu cuenta</h3>
             </div>
 
-            <mat-form-field class="register-full-width col-12 mt-4" appearance="outline" color="accent">
+            <mat-form-field data-testid="email-form-field" class="register-full-width col-12 mt-4" appearance="outline" color="accent">
                 <mat-label>Email</mat-label>
                 <input id="email-eagle" type="email" matInput formControlName="email" autocomplete="off"
                     placeholder="Ex. pat@example.com">
@@ -23,7 +23,7 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field class="register-full-width col-12 mt-4" appearance="outline" color="accent">
+            <mat-form-field data-testid="password-form-field" class="register-full-width col-12 mt-4" appearance="outline" color="accent">
                 <mat-label>Password</mat-label>
                 <input type="password" matInput formControlName="password" placeholder="Ex. 123">
                 <mat-error
@@ -36,7 +36,7 @@
             </mat-form-field>
 
             <div class="col-12 register-button mt-4">
-                <button mat-fab extended class="" type="submit" color="accent">
+                <button mat-fab extended class="" type="submit" color="accent" [disabled]="registerForm.invalid" data-testid="register-button">
                     <mat-icon>save</mat-icon>
                     Registrarse
                 </button>
