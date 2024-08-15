@@ -1,1 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@include mat.core();
+
+
+@import 'bootstrap/scss/bootstrap';
+
+$project-theme: mat.define-theme((color: (theme-type: light,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      density: (scale: 0,
+      ),
+    ));
+
+:root {
+  @include mat.all-component-themes($project-theme);
+}
+
+$color-primary: #151515;
+$color-secondry: #A91D3A;
+$color-third: #C73659;
+$color-four: #EEEEEE;
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Estilos generales para todos los tamaños de pantalla */
+@media (max-width: 600px) {
+
+}
+
+/* Tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+}
+
+/* Escritorio */
+@media (min-width: 1025px) {
+  
+}

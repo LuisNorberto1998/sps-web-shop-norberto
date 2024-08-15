@@ -1,0 +1,53 @@
+<div class="register-container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+        <div class="row">
+            <div class="col-12 text-center">
+                <img src="assets/img/logo-eagle.png" alt="Logo" loading="lazy" class="register-logo">
+            </div>
+
+            <div class="col-12 text-center">
+                <h2>Bienvenido</h2>
+                <h3>Aquí puedes crear tu cuenta</h3>
+            </div>
+
+            <mat-form-field data-testid="email-form-field" class="register-full-width col-12 mt-4" appearance="outline" color="accent">
+                <mat-label>Email</mat-label>
+                <input id="email-eagle" type="email" matInput formControlName="email" autocomplete="off"
+                    placeholder="Ex. pat@example.com">
+                <mat-error
+                    *ngIf="registerForm.get('email')?.hasError('email') && !registerForm.get('email')?.hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field data-testid="password-form-field" class="register-full-width col-12 mt-4" appearance="outline" color="accent">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="Ex. 123">
+                <mat-error
+                    *ngIf="registerForm.get('password')?.hasError('password') && !registerForm.get('password')?.hasError('required')">
+                    Please enter a valid password
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <div class="col-12 register-button mt-4">
+                <button mat-fab extended class="" type="submit" color="accent" [disabled]="registerForm.invalid" data-testid="register-button">
+                    <mat-icon>save</mat-icon>
+                    Registrarse
+                </button>
+            </div>
+
+            <div class="col-12 text-center mt-3">
+                <h3>Inicia sesión
+                    <a (click)="navigateToRegister()" class="cursor-pointer">aquí</a>
+                </h3>
+            </div>
+
+        </div>
+    </form>
+</div>

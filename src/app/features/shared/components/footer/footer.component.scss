@@ -1,0 +1,62 @@
+.footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.footer-logo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.footer-logo-link {
+    display: flex;
+    align-items: center;
+}
+
+.footer-logo-img {
+    max-width: 100px;
+    height: auto;
+}
+
+.footer-text,
+.footer-copyright,
+.footer-privacy {
+    flex: 1;
+    text-align: center;
+}
+
+.footer-heading {
+    margin: 0;
+    font-size: 14px;
+}
+
+.footer-emoji {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+}
+
+.footer-spacer {
+    flex: 1;
+}
+
+/* Estilos generales para todos los tamaños de pantalla */
+@media (max-width: 600px) {
+    .footer-container {
+        flex-direction: column;
+    }
+}
+
+/* Tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+}
+
+/* Escritorio */
+@media (min-width: 1025px) {
+  
+}

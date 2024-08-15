@@ -1,0 +1,40 @@
+.example-icon {
+  margin-right: 16px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.favorite-icon {
+  color: red;
+}
+
+.logo-image {
+  img {
+    width: 50%;
+    margin-right: 16px;
+  }
+}
+
+.custom-toolbar {
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #ff4081;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+}

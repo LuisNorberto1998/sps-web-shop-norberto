@@ -1,0 +1,6 @@
+<div class="review-card">
+    <app-rating [rating]="review?.rating"></app-rating>
+    <p class="review-comment">{{ review?.comment }}</p>
+    <p class="reviewer-name">- {{ review?.reviewerName }}</p>
+    <p class="review-date">{{ review?.date | date }}</p>
+</div>

@@ -1,0 +1,52 @@
+<div class="login-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="row">
+            <div class="col-12 text-center">
+                <img src="assets/img/logo-eagle.png" alt="Logo" loading="lazy" class="login-logo">
+            </div>
+
+            <div class="col-12 text-center">
+                <h2>Bienvenido</h2>
+            </div>
+
+            <mat-form-field data-testid="email-form-field" class="login-full-width col-12 mt-4" appearance="outline" color="accent">
+                <mat-label>Email</mat-label>
+                <input id="email-eagle" type="email" matInput formControlName="email" autocomplete="off"
+                    placeholder="Ex. pat@example.com">
+                <mat-error
+                    *ngIf="loginForm.get('email')?.hasError('email') && !loginForm.get('email')?.hasError('required')">
+                    Por favor ingresa un email
+                </mat-error>
+                <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                    Email es <strong>obligatorio</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field data-testid="password-form-field" class="login-full-width col-12 mt-4" appearance="outline" color="accent">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="Ex. 123">
+                <mat-error
+                    *ngIf="loginForm.get('password')?.hasError('password') && !loginForm.get('password')?.hasError('required')">
+                    Ingresa una contraseña
+                </mat-error>
+                <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                    Contraseña es <strong>obligatoria</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <div class="col-12 login-button mt-4">
+                <button mat-fab extended class="" type="submit" color="accent" [disabled]="loginForm.invalid" data-testid="login-button">
+                    <mat-icon>login</mat-icon>
+                    Iniciar sesión
+                </button>
+            </div>
+
+            <div class="col-12 text-center mt-3">
+                <h3>Registrate
+                    <a (click)="navigateToRegister()" class="cursor-pointer">aquí</a>
+                </h3>
+            </div>
+
+        </div>
+    </form>
+</div>

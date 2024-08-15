@@ -1,0 +1,80 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    min-height: 92%;
+}
+
+.login-logo {
+    width: auto;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.login-button {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+
+    button {
+        width: 50%;
+        margin: auto;
+    }
+}
+
+.login-full-width {
+    width: 100%;
+
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+        background-color: red;
+    }
+
+}
+
+
+/* Estilos generales para todos los tamaños de pantalla */
+@media (max-width: 600px) {
+    .login-container {
+        min-height: 100vh;
+    }
+    
+    .login-logo {
+        width: auto;
+        margin-bottom: 20px;
+    }
+    
+    .login-form {
+        min-width: 150px;
+        max-width: 500px;
+        width: 80%;
+    }
+    
+    .login-button {
+    
+        button {
+            width: 100%;
+        }
+    }
+    
+    .login-full-width {
+        width: 100%;
+    
+        .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+            background-color: red;
+        }
+    
+    }
+}
+
+/* Tablets */
+@media (min-width: 601px) and (max-width: 1024px) {}
+
+/* Escritorio */
+@media (min-width: 1025px) {}

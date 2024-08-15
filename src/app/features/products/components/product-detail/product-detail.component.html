@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<div class="container-product-detail">
+    <div class="container-detail">
+
+        <div class="container-info">
+            <h1 class="product-name">{{product?.title}}</h1>
+            <p class="product-price">{{product?.price | currency}}</p>
+
+            <app-rating [rating]="product?.rating"></app-rating>
+
+
+            <div [ngClass]="{
+                'product-stock': product?.stock > 0,
+                'out-of-stock': product?.stock <= 0
+              }">
+                <p>Cantidad: {{ product?.stock }}</p>
+            </div>
+
+            <button *ngIf="product?.stock > 0" class="add-to-cart-btn" (click)="addToCart($event)">Agregar al
+                carrito</button>
+            <p class="product-description">
+                {{ product?.description }}
+            </p>
+        </div>
+
+        <div class="container-img">
+            <div class="style-img">
+                <img [src]="product?.images[0]" loading="lazy" alt="Product Image">
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <owl-carousel-o [options]="customOptions">
+        <ng-container *ngFor="let review of product?.reviews">
+            <ng-template carouselSlide>
+                <app-review [review]="review"></app-review>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+
+
+</div>
