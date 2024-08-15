@@ -26,14 +26,14 @@ describe("2_Validación de la pantalla de registro", () => {
     cy.get('[data-testid="email-form-field"] input').focus().blur();
     cy.get('[data-testid="email-form-field"]')
       .find("mat-error")
-      .should("contain.text", "Email is")
-      .and("contain.text", "required");
+      .should("contain.text", "Email es")
+      .and("contain.text", "obligatorio");
 
     cy.get('[data-testid="password-form-field"] input').focus().blur();
     cy.get('[data-testid="password-form-field"]')
       .find("mat-error")
-      .should("contain.text", "Password is")
-      .and("contain.text", "required");
+      .should("contain.text", "Contraseña es")
+      .and("contain.text", "obligatoria");
 
     cy.get('[data-testid="register-button"]').click({ force: true });
 
@@ -54,8 +54,8 @@ describe("3_Validación de la pantalla de registro", () => {
     cy.get("body").click(0, 0);
     cy.get('[data-testid="password-form-field"]')
       .find("mat-error")
-      .should("contain.text", "Password is")
-      .and("contain.text", "required");
+      .should("contain.text", "Contraseña es")
+      .and("contain.text", "obligatoria");
 
     cy.get('[data-testid="register-button"]').should("be.disabled");
 
@@ -65,8 +65,8 @@ describe("3_Validación de la pantalla de registro", () => {
     cy.get('[data-testid="password-form-field"] input').type("validpassword");
     cy.get('[data-testid="email-form-field"]')
       .find("mat-error")
-      .should("contain.text", "Email is")
-      .and("contain.text", "required");
+      .should("contain.text", "Email es")
+      .and("contain.text", "obligatorio");
 
     cy.get('[data-testid="password-form-field"]')
       .find("mat-error")
