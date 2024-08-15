@@ -1,10 +1,10 @@
 <div class="search-bar">
-    <mat-form-field class="search-bar-input" appearance="outline" color="accent">
+    <mat-form-field class="search-bar-input" appearance="outline" color="accent" data-testid="search-input-test">
         <mat-label>Buscar...</mat-label>
         <input matInput type="text" [(ngModel)]="searchTerm" (ngModelChange)="applyFilter()">
 
         <button matSuffix mat-icon-button aria-label="Filtros"
-            (click)="sidenav.open()"><mat-icon>filter_alt</mat-icon></button>
+            (click)="sidenav.open()" data-testid="open-nav-test"><mat-icon>filter_alt</mat-icon></button>
 
         <button *ngIf="searchTerm" matSuffix mat-icon-button aria-label="Limpiar" (click)="cleanSearch()">
             <mat-icon>delete</mat-icon>
@@ -19,10 +19,10 @@
 
 <!-- app.component.html -->
 <mat-sidenav-container [ngClass]="{'sidenav-container': sidenav.opened}">
-    <mat-sidenav #sidenav mode="side" position="end" class="sidenav">
+    <mat-sidenav #sidenav mode="side" position="end" class="sidenav" data-testid="sidenav-test">
 
         <div class="filters-button">
-            <button mat-icon-button (click)="sidenav.close()">
+            <button mat-icon-button (click)="sidenav.close()" data-testid="close-nav-test">
                 <mat-icon>close</mat-icon>
             </button>
             <h3>Filtros</h3>
@@ -30,13 +30,13 @@
         <!-- Aquí puedes añadir el contenido del panel -->
 
         <div class="filters-search">
-            <mat-form-field appearance="outline" color="accent">
+            <mat-form-field appearance="outline" color="accent" data-testid="category-input-test">
                 <mat-select placeholder="Categoría" [(ngModel)]="selectedCategory" (ngModelChange)="applyFilter()">
                     <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" color="accent">
+            <mat-form-field appearance="outline" color="accent" data-testid="order-input-test">
                 <mat-select placeholder="Ordenar por" [(ngModel)]="sortOption" (ngModelChange)="applyFilter()">
                     <mat-option value="title">Nombre</mat-option>
                     <mat-option value="price">Precio</mat-option>
@@ -44,25 +44,25 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" color="accent">
+            <mat-form-field appearance="outline" color="accent" data-testid="asc-desc-input-test">
                 <mat-select placeholder="Orden" [(ngModel)]="sortOrder" (ngModelChange)="applyFilter()">
                     <mat-option value="asc">Ascendente</mat-option>
                     <mat-option value="desc">Descendente</mat-option>
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" color="accent">
+            <mat-form-field appearance="outline" color="accent" data-testid="rating-input-test">
                 <mat-select placeholder="Calificación" [(ngModel)]="selectedRating" (ngModelChange)="applyFilter()">
                     <mat-option *ngFor="let rating of ratings" [value]="rating.value">{{ rating.name }}</mat-option>
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" color="accent">
+            <mat-form-field appearance="outline" color="accent" data-testid="minimum-price-input-test">
                 <mat-label>Precio Mínimo</mat-label>
                 <input matInput type="number" [(ngModel)]="minPrice" (ngModelChange)="applyFilter()">
             </mat-form-field>
 
-            <mat-form-field appearance="outline" color="accent">
+            <mat-form-field appearance="outline" color="accent" data-testid="maximum-price-input-test">
                 <mat-label>Precio Máximo</mat-label>
                 <input matInput type="number" [(ngModel)]="maxPrice" (ngModelChange)="applyFilter()">
             </mat-form-field>
