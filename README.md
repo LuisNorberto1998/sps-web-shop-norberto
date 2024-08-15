@@ -11,7 +11,7 @@ Este proyecto ha sido generado con [Angular CLI](https://github.com/angular/angu
 - [Ejecución de Pruebas Unitarias](#ejecución-de-pruebas-unitarias)
 - [Ejecución de Pruebas de Extremo a Extremo (E2E)](#ejecución-de-pruebas-de-extremo-a-extremo-e2e)
 - [Despliegue en Firebase Hosting](#despliegue-en-firebase-hosting)
-- [Ayuda Adicional](#ayuda-adicional)
+- [Estructura del proyectol](#estructura-del-proyecto)
 
 ---
 
