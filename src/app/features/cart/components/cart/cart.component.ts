@@ -20,7 +20,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
   ) {}
 
   ngOnInit(): void {
@@ -34,9 +34,20 @@ export class CartComponent implements OnInit, OnDestroy {
   loadCart() {
     this.spinnerService.showSpinner();
     this.cartSubscription.add(
-      this.cartService.getCartItems().subscribe((items) => {
-        this.cart = items;
-        this.spinnerService.hideSpinner();
+      this.cartService.getCartItems().subscribe({
+        next: (items) => {
+          if (items.length > 0) {
+            this.cart = items;
+            this.spinnerService.hideSpinner();
+          } else {
+            this.cart = [];
+            this.spinnerService.hideSpinner();
+          }
+        },
+        error: () => {
+          this.cart = [];
+          this.spinnerService.hideSpinner();
+        }
       })
     );
   }

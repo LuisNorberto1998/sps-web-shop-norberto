@@ -1,5 +1,5 @@
 <div class="product-grid">
-
+  @if (filterProducts?.products.length > 0) {
   <div *ngFor="let product of filterProducts?.products" class="product-item">
     <mat-card class="example-card" appearance="outlined" (click)="onCardClick(product)">
       <img mat-card-image [src]="product?.thumbnail" loading="lazy" alt="{{ product.title }}">
@@ -20,6 +20,12 @@
       </mat-card-actions>
     </mat-card>
   </div>
+  } @else {
+  <div class="no-products">
+    <mat-icon>sentiment_dissatisfied</mat-icon>
+    <p>No hay productos disponibles en este momento.</p>
+  </div>
+  }
 </div>
 
 <mat-paginator class="paginator-list" [length]="filterProducts?.total" [pageSize]="pageSize"

@@ -67,7 +67,7 @@
                 <input matInput type="number" [(ngModel)]="maxPrice" (ngModelChange)="applyFilter()">
             </mat-form-field>
 
-            <button mat-fab extended color="warn" (click)="cleanSearch()">
+            <button mat-fab extended color="warn" (click)="sidenav.close(); cleanSearch();">
                 <mat-icon>delete</mat-icon>
                 Limpiar
             </button>

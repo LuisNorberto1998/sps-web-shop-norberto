@@ -14,6 +14,7 @@ import { ProductService } from '../../services/product.service';
 import { SpinnerService } from '../../../shared/services/spinner.service';
 import { Router } from '@angular/router';
 import { RatingComponent } from '../../../shared/components/rating/rating.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product-list',
@@ -24,7 +25,8 @@ import { RatingComponent } from '../../../shared/components/rating/rating.compon
     CommonModule,
     MatPaginatorModule,
     MatGridListModule,
-    RatingComponent
+    RatingComponent,
+    MatIconModule
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',

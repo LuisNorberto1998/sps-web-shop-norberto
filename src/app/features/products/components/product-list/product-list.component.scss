@@ -61,6 +61,29 @@ mat-card-actions {
   padding-bottom: 20px;
 }
 
+.no-products {
+  text-align: center;
+  padding: 20px;
+  color: #555;
+  min-height: 60vh;
+  margin: auto;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.no-products mat-icon {
+  width: auto;
+  height: auto;
+  font-size: 100px;
+  color: #888;
+}
+
+.no-products p {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
 
 /* Estilos generales para todos los tamaños de pantalla */
 @media (max-width: 600px) {
@@ -75,6 +98,11 @@ mat-card-actions {
 
   .example-card {
     transition: none;
+  }
+
+
+  .paginator-list {
+    width: 100%;
   }
 }
 

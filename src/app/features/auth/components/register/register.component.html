@@ -16,10 +16,10 @@
                     placeholder="Ex. pat@example.com">
                 <mat-error
                     *ngIf="registerForm.get('email')?.hasError('email') && !registerForm.get('email')?.hasError('required')">
-                    Please enter a valid email address
+                    Por favor ingresa un email valido
                 </mat-error>
                 <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
-                    Email is <strong>required</strong>
+                    Email es <strong>obligatorio</strong>
                 </mat-error>
             </mat-form-field>
 
@@ -28,10 +28,10 @@
                 <input type="password" matInput formControlName="password" placeholder="Ex. 123">
                 <mat-error
                     *ngIf="registerForm.get('password')?.hasError('password') && !registerForm.get('password')?.hasError('required')">
-                    Please enter a valid password
+                    Ingresa una contraseña
                 </mat-error>
                 <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
-                    Password is <strong>required</strong>
+                    Contraseña es <strong>obligatoria</strong>
                 </mat-error>
             </mat-form-field>
 

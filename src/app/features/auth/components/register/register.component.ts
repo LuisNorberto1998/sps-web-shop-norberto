@@ -16,6 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { SpinnerService } from '../../../shared/services/spinner.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -39,7 +41,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private spinnerService: SpinnerService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -59,8 +63,17 @@ export class RegisterComponent implements OnInit {
       .register(user)
       .then((response) => {
         this.router.navigate(['/login']);
+        this.spinnerService.hideSpinner();
+        this.snackBar.open('Usuario creado con éxito', 'Cerrar', {
+          duration: 3000,
+        });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        this.spinnerService.hideSpinner();
+        this.snackBar.open('Error al crear usuario', 'Cerrar', {
+          duration: 3000,
+        });
+      });
   }
 
   navigateToRegister() {
