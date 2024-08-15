@@ -31,6 +31,9 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
 
 /* Estilos generales para todos los tamaños de pantalla */
 @media (max-width: 600px) {

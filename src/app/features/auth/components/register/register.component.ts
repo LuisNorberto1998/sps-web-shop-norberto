@@ -62,4 +62,8 @@ export class RegisterComponent implements OnInit {
       })
       .catch((error) => console.error(error));
   }
+
+  navigateToRegister() {
+    this.router.navigate(['/login']);
+  }
 }

@@ -31,7 +31,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatButtonModule,
     MatDividerModule,
     MatIconModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -64,15 +64,18 @@ export class LoginComponent {
     this.authService
       .login(user)
       .then((response) => {
-        
         const userEmail = response.user?.email || '';
         const userId = response.user?.uid || '';
         this.router.navigate(['/dashboard']);
         this.spinnerService.hideSpinner();
 
-        this.snackBar.open(`Sesión iniciada con éxito:  ${userEmail} - ${userId}`, 'Cerrar', {
-          duration: 5000,
-        });
+        this.snackBar.open(
+          `Sesión iniciada con éxito:  ${userEmail} - ${userId}`,
+          'Cerrar',
+          {
+            duration: 5000,
+          }
+        );
       })
       .catch((error) => {
         console.error(error);
@@ -81,5 +84,9 @@ export class LoginComponent {
           duration: 3000,
         });
       });
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/register']); 
   }
 }
