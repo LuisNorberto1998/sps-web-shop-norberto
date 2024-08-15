@@ -65,6 +65,29 @@ button[mat-icon-button] {
     font-weight: bold;
 }
 
+.no-products {
+    text-align: center;
+    padding: 20px;
+    color: #555;
+    min-height: 60vh;
+    margin: auto;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.no-products mat-icon {
+    width: auto;
+    height: auto;
+    font-size: 100px;
+    color: #888;
+}
+
+.no-products p {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
 @media (max-width: 600px) {
     .cart-container {
         flex-direction: column;

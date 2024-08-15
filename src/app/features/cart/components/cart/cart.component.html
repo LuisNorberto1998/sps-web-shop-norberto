@@ -3,18 +3,27 @@
 <div class="cart-container-primary">
     <div class="cart-container">
         <div class="cart-products">
+
+            @if (cart.length > 0) {
             <div *ngFor="let product of cart" class="cart-product">
                 <img [src]="product.thumbnail" alt="{{product.title}}">
                 <div class="product-details">
                     <h3 class="title-cart">{{product.title}}</h3>
                     <p>{{product.price | currency}}</p>
                     <p>Cantidad: {{product.quantity}}</p>
-    
+
                     <button mat-icon-button (click)="removeFromCart(product.id)" color="warn">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>
             </div>
+            } @else {
+            <div class="no-products">
+                <mat-icon>sentiment_dissatisfied</mat-icon>
+                <p>No hay productos en tu carrito.</p>
+            </div>
+            }
+
         </div>
 
         <div class="cart-summary">
@@ -24,7 +33,7 @@
 
 
             <div class="w-100 pt-5">
-                <button mat-fab extended class="checkout-btn">
+                <button mat-fab extended class="checkout-btn" [disabled]="!(cart.length > 0)">
                     <mat-icon>payment</mat-icon>
                     Pagar
                 </button>
