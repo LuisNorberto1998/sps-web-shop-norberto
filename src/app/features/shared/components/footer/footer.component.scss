@@ -43,3 +43,20 @@
 .footer-spacer {
     flex: 1;
 }
+
+/* Estilos generales para todos los tamaños de pantalla */
+@media (max-width: 600px) {
+    .footer-container {
+        flex-direction: column;
+    }
+}
+
+/* Tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+}
+
+/* Escritorio */
+@media (min-width: 1025px) {
+  
+}
